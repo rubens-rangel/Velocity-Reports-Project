@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório Financeiro</title>
+    <style>
+        /* Mantenha os estilos originais */
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        .header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; margin-bottom: 30px; }
+        .report-title { font-size: 24px; margin: 10px 0; }
+        .report-period { font-size: 16px; color: #ecf0f1; }
+        .section { margin-bottom: 30px; page-break-inside: avoid; }
+        .section-title { background-color: #3498db; color: white; padding: 8px 15px; font-size: 18px; margin-bottom: 15px; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th { background-color: #2980b9; color: white; padding: 10px; text-align: left; }
+        td { padding: 8px 10px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        .footer { text-align: center; margin-top: 30px; padding: 15px; font-size: 12px; color: #7f8c8d; border-top: 1px solid #eee; }
+        .chart-placeholder { background-color: #f9f9f9; border: 1px solid #ddd; padding: 20px; text-align: center; margin: 20px 0; color: #95a5a6; }
+        .highlight { font-weight: bold; color: #e74c3c; }
+        .summary-card { background-color: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="report-title">$!report.title</div>
+        <div class="report-period">
+            Período: $!report.startDate à $!report.endDate
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Resumo Executivo</div>
+        <div class="summary-card">
+            <p>Total de Vendas: <span class="highlight">$!currency.format($!report.summary.totalSales)</span></p>
+            <p>Total de Despesas: <span class="highlight">$!currency.format($!report.summary.totalExpenses)</span></p>
+            <p>Lucro Líquido: <span class="highlight">$!currency.format($!report.summary.netProfit)</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Vendas por Categoria</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total</th>
+                    <th>% do Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($category in $!report.salesByCategory)
+                <tr>
+                    <td>$!category.name</td>
+                    <td>$!category.quantity</td>
+                    <td>$!currency.format($!category.totalValue)</td>
+                    <td>$!percent.format($!category.percentage)</td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Top Clientes</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Valor Total</th>
+                    <th>Última Compra</th>
+                    <th>Fidelidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($client in $!report.topClients)
+                <tr>
+                    <td>$!client.name</td>
+                    <td>$!currency.format($!client.totalValue)</td>
+                    <td>$!client.lastPurchase</td>
+                    <td>$!client.loyaltyLevel</td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        Relatório gerado em: $!now | Página {PAGENO} de {TOTALPAGES}
+    </div>
+</body>
+</html>
