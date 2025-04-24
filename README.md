@@ -1,8 +1,12 @@
-##########Projeto de aprendizado de relatorios feitos no Apache Velocity.############
+# Projeto de Aprendizado: Relatórios com Apache Velocity
 
+Este projeto tem como objetivo demonstrar e fornecer um exemplo prático de como gerar relatórios dinâmicos utilizando o Apache Velocity como motor de templates. Através de uma API simples, dados em formato JSON podem ser enviados para gerar relatórios personalizados em diversos formatos (atualmente focado no exemplo JSON).
 
+## Exemplo de Requisição (curl)
 
-################ Exemplo de Requisição ################
+A seguinte requisição `curl` ilustra como interagir com a API para gerar um relatório financeiro:
+
+```bash
 curl --location 'http://localhost:8080/api/report/financial-report' \
 --header 'Content-Type: application/json' \
 --data '{
